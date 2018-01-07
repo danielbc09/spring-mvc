@@ -1,9 +1,6 @@
 package dany.springframerwork.spring5recipeapp.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by bautisj on 1/3/2018.
@@ -14,7 +11,12 @@ public class Notes{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String notes;
+
+    @Lob
+    private String recipeNotes;
+
+    @OneToOne
+    private Recipe recipe;
 
     public Long getId() {
         return id;
@@ -24,11 +26,20 @@ public class Notes{
         this.id = id;
     }
 
-    public String getNotes() {
-        return notes;
+    public String getRecipeNotes() {
+        return recipeNotes;
     }
 
-    public void setNotes(String notes) {
-        this.notes = notes;
+    public void setRecipeNotes(String recipeNotes) {
+        this.recipeNotes = recipeNotes;
     }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
+
 }

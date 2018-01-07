@@ -8,6 +8,7 @@ import javax.persistence.*;
  * Created by bautisj on 1/3/2018.
  */
 @Data
+@EqualsAndHashCode(exclude = {"recipe"})
 @Entity
 public class Notes{
 
@@ -21,11 +22,5 @@ public class Notes{
     @OneToOne
     private Recipe recipe;
 
-    public Notes() {
-    }
-
-    protected boolean canEqual(Object other) {
-        return other instanceof Notes;
-    }
 
 }

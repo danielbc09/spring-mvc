@@ -9,6 +9,7 @@ import java.util.Set;
  * Created by bautisj on 1/3/2018.
  */
 @Data
+@EqualsAndHashCode(exclude = {"recipes"})
 @Entity
 public class Category {
 

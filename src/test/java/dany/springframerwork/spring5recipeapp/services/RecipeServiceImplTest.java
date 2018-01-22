@@ -1,5 +1,7 @@
 package dany.springframerwork.spring5recipeapp.services;
 
+import dany.springframerwork.spring5recipeapp.converters.RecipeCommandToRecipe;
+import dany.springframerwork.spring5recipeapp.converters.RecipeToRecipeCommand;
 import dany.springframerwork.spring5recipeapp.domain.Recipe;
 import dany.springframerwork.spring5recipeapp.repositories.RecipeRepository;
 import org.junit.Before;
@@ -24,10 +26,16 @@ public class RecipeServiceImplTest {
     @Mock
     RecipeRepository recipeRepository;
 
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
+
     @Before
     public void setUp() throws Exception{
         MockitoAnnotations.initMocks(this);
-        recipeServiceImpl = new RecipeServiceImpl(recipeRepository);
+        recipeServiceImpl = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
     @Test

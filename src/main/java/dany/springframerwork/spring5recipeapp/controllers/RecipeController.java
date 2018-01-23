@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.jws.WebParam;
+
 /**
  * Created by bautisj on 1/10/2018.
  */
@@ -36,6 +38,12 @@ public class RecipeController {
         return "recipe/recipeform";
     }
 
+    @RequestMapping("recipe/{id}/update")
+    public String updateRecipe(@PathVariable String id, Model model){
+        model.addAttribute("recipe", recipeService.findRecipeCommandById(Long.valueOf(id)));
+        return "recipe/recipeform";
+    }
+
     @PostMapping
     @RequestMapping("recipe")
     public String SaveOrUpdate(@ModelAttribute RecipeCommand command){
@@ -43,9 +51,14 @@ public class RecipeController {
         return "redirect:/recipe/"+savedCommand.getId() +"/show";
     }
 
-    @RequestMapping("recipe/{id}/update")
-    public String updateRecipe(@PathVariable String id, Model model){
-        model.addAttribute("recipe", recipeService.findRecipeCommandById(Long.valueOf(id)));
-        return "recipe/recipeform";
+    @GetMapping
+    @RequestMapping("recipe/{id}/delete")
+    public String delete(@PathVariable String id){
+        recipeService.deleteById(Long.valueOf(id));
+
+        log.debug("Deleting id" + id);
+
+        return "redirect:/";
     }
+
 }

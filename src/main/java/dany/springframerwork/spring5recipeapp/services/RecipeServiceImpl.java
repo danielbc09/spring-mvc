@@ -17,7 +17,6 @@ import java.util.Set;
 @Service
 public class RecipeServiceImpl implements RecipeService{
 
-
     private final RecipeRepository recipeRepository;
     private final RecipeCommandToRecipe recipeCommandToRecipe;
     private final RecipeToRecipeCommand recipeToRecipeCommand;
@@ -56,4 +55,11 @@ public class RecipeServiceImpl implements RecipeService{
         log.debug("Saved RecipeId: " + savedRecipe.getId());
         return recipeToRecipeCommand.convert(savedRecipe);
     }
+
+    @Override
+    @Transactional
+    public RecipeCommand findRecipeCommandById(long l) {
+        return recipeToRecipeCommand.convert(findById(l));
+    }
+
 }

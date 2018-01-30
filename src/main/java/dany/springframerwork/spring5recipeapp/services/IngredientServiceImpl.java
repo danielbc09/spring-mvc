@@ -58,7 +58,7 @@ public class IngredientServiceImpl implements IngredientService{
     @Override
     @Transactional
     public IngredientCommand saverIngredientCommand(IngredientCommand ingredientCommand) {
-        Optional<Recipe> recipeOptional = recipeRepository.findById(ingredientCommand.getId());
+        Optional<Recipe> recipeOptional = recipeRepository.findById(ingredientCommand.getRecipeId());
 
         if (!recipeOptional.isPresent()){
             //TO-DO Handling errror
@@ -75,7 +75,9 @@ public class IngredientServiceImpl implements IngredientService{
             Ingredient ingredientFound = ingredientOptional.get();
             ingredientFound.setDescription(ingredientCommand.getDescription());
             ingredientFound.setAmount(ingredientCommand.getAmount());
-            ingredientFound.setUnitOfMeasure(unitOfMeasureRepository.findById(ingredientCommand.getUnitOfMeasure().getId()).orElseThrow(()->new RuntimeException("UOM Not FOUND")));
+            ingredientFound.setUnitOfMeasure(unitOfMeasureRepository
+                            .findById(ingredientCommand.getUnitOfMeasure().getId())
+                            .orElseThrow(()->new RuntimeException("UOM Not FOUND")));
         }else{
             //add new Ingredient
             recipe.addIngredient(ingredientCommandToIngredient.convert(ingredientCommand));

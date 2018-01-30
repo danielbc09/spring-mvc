@@ -1,6 +1,6 @@
 package dany.springframerwork.spring5recipeapp.controllers;
 
-import dany.springframerwork.spring5recipeapp.domain.UnitOfMeasure;
+import dany.springframerwork.spring5recipeapp.commands.IngredientCommand;
 import dany.springframerwork.spring5recipeapp.services.IngredientService;
 import dany.springframerwork.spring5recipeapp.services.RecipeService;
 import dany.springframerwork.spring5recipeapp.services.UnitOfMeasureService;
@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -54,7 +55,19 @@ public class IngredientController {
         model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(ingredientId)));
         model.addAttribute("uomList", unitOfMeasureService.listAllUnitOfMeasure());
 
-        return "recipe/ingredient/update";
+        return "recipe/ingredient/ingredientform";
+    }
+
+    @GetMapping
+    @RequestMapping("/recipe/{recipeId}/ingredient")
+    public String saveOrUpdate(@ModelAttribute IngredientCommand ingredientCommand){
+
+        IngredientCommand savedCommand = ingredientService.saverIngredientCommand(ingredientCommand);
+
+        log.debug("saved receipe id:" + savedCommand.getRecipeId());
+        log.debug("saved ingredient id:" + savedCommand.getId());
+
+        return "redirect:/recipe/"+ savedCommand.getRecipeId()+ "/ingredient/"+savedCommand.getId() +"show";
     }
 
 }

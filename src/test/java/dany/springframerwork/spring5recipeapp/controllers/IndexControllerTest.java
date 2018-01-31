@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.stereotype.Controller;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
@@ -24,6 +25,7 @@ import static org.mockito.Mockito.*;
 /**
  * Created by bautisj on 1/9/2018.
  */
+@Controller
 public class IndexControllerTest {
 
     @Mock

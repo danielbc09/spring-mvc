@@ -1,7 +1,7 @@
 package dany.springframerwork.spring5recipeapp.services;
 
 import dany.springframerwork.spring5recipeapp.commands.IngredientCommand;
-import dany.springframerwork.spring5recipeapp.converters.IngredienToIngredientCommand;
+import dany.springframerwork.spring5recipeapp.converters.IngredientToIngredientCommand;
 import dany.springframerwork.spring5recipeapp.converters.IngredientCommandToIngredient;
 import dany.springframerwork.spring5recipeapp.converters.UnitOfMeasureCommandTounitOfMeasure;
 import dany.springframerwork.spring5recipeapp.converters.UnitOfMeasureToUnitOfMeasureCommand;
@@ -28,7 +28,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class IngredientServiceImplTest {
 
-    private final IngredienToIngredientCommand ingredienToIngredientCommand;
+    private final IngredientToIngredientCommand ingredienToIngredientCommand;
     private final IngredientCommandToIngredient ingredientCommandToIngredient;
 
     @Mock
@@ -41,7 +41,7 @@ public class IngredientServiceImplTest {
 
 
     public IngredientServiceImplTest() {
-        this.ingredienToIngredientCommand = new IngredienToIngredientCommand(new UnitOfMeasureToUnitOfMeasureCommand());
+        this.ingredienToIngredientCommand = new IngredientToIngredientCommand(new UnitOfMeasureToUnitOfMeasureCommand());
         this.ingredientCommandToIngredient = new IngredientCommandToIngredient(new UnitOfMeasureCommandTounitOfMeasure());
     }
 

@@ -1,6 +1,8 @@
 package dany.springframerwork.spring5recipeapp.controllers;
 
 import dany.springframerwork.spring5recipeapp.commands.IngredientCommand;
+import dany.springframerwork.spring5recipeapp.commands.RecipeCommand;
+import dany.springframerwork.spring5recipeapp.commands.UnitOfMeasureCommand;
 import dany.springframerwork.spring5recipeapp.services.IngredientService;
 import dany.springframerwork.spring5recipeapp.services.RecipeService;
 import dany.springframerwork.spring5recipeapp.services.UnitOfMeasureService;
@@ -70,4 +72,19 @@ public class IngredientController {
         return "redirect:/recipe/"+ savedCommand.getRecipeId()+ "/ingredient/"+savedCommand.getId() +"/show";
     }
 
+    @GetMapping
+    @RequestMapping("/recipe/{recipeId}/ingredient/new")
+    public String newIngredient (@PathVariable String recipeId, Model model){
+        //Make sure the recipe exist
+        RecipeCommand recipeCommand = recipeService.findRecipeCommandById(Long.valueOf(recipeId));
+        //TO-DO exception if null
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(Long.valueOf(recipeId));
+
+        model.addAttribute("ingredient", ingredientCommand);
+        ingredientCommand.setUnitOfMeasure(new UnitOfMeasureCommand());
+        model.addAttribute("uomList", unitOfMeasureService.listAllUnitOfMeasure());
+
+        return "recipe/ingredient/ingredientform";
+    }
 }

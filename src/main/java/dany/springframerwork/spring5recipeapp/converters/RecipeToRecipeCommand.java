@@ -15,10 +15,10 @@ import dany.springframerwork.spring5recipeapp.domain.Category;
 public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand>{
 
     private final CategoryToCategoryCommand categoryConverter;
-    private final IngredienToIngredientCommand ingredientConverter;
+    private final IngredientToIngredientCommand ingredientConverter;
     private final NotesToNotesCommand notesConverter;
 
-    public RecipeToRecipeCommand(CategoryToCategoryCommand categoryConverter, IngredienToIngredientCommand ingredientConverter, NotesToNotesCommand notesCommand) {
+    public RecipeToRecipeCommand(CategoryToCategoryCommand categoryConverter, IngredientToIngredientCommand ingredientConverter, NotesToNotesCommand notesCommand) {
         this.categoryConverter = categoryConverter;
         this.ingredientConverter = ingredientConverter;
         this.notesConverter = notesCommand;

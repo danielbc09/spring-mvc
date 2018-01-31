@@ -11,11 +11,11 @@ import org.springframework.stereotype.Component;
  * Created by bautisj on 1/22/2018.
  */
 @Component
-public class IngredienToIngredientCommand implements Converter<Ingredient, IngredientCommand>{
+public class IngredientToIngredientCommand implements Converter<Ingredient, IngredientCommand>{
 
     private final UnitOfMeasureToUnitOfMeasureCommand uomConverter;
 
-    public IngredienToIngredientCommand(UnitOfMeasureToUnitOfMeasureCommand uomConverter) {
+    public IngredientToIngredientCommand(UnitOfMeasureToUnitOfMeasureCommand uomConverter) {
         this.uomConverter = uomConverter;
     }
 

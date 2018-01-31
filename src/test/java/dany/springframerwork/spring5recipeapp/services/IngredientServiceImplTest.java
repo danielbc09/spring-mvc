@@ -7,6 +7,7 @@ import dany.springframerwork.spring5recipeapp.converters.UnitOfMeasureCommandTou
 import dany.springframerwork.spring5recipeapp.converters.UnitOfMeasureToUnitOfMeasureCommand;
 import dany.springframerwork.spring5recipeapp.domain.Ingredient;
 import dany.springframerwork.spring5recipeapp.domain.Recipe;
+import dany.springframerwork.spring5recipeapp.repositories.IngredientRepository;
 import dany.springframerwork.spring5recipeapp.repositories.RecipeRepository;
 import dany.springframerwork.spring5recipeapp.repositories.UnitOfMeasureRepository;
 import org.junit.Before;
@@ -37,6 +38,9 @@ public class IngredientServiceImplTest {
     @Mock
     UnitOfMeasureRepository unitOfMeasureRepository;
 
+    @Mock
+    IngredientRepository ingredientRepository;
+
     IngredientService ingredientService;
 
 
@@ -48,7 +52,7 @@ public class IngredientServiceImplTest {
     @Before
     public void setUp() throws Exception{
         MockitoAnnotations.initMocks(this);
-        ingredientService = new IngredientServiceImpl(ingredienToIngredientCommand, ingredientCommandToIngredient, recipeRepository, unitOfMeasureRepository);
+        ingredientService = new IngredientServiceImpl(ingredienToIngredientCommand, ingredientCommandToIngredient, recipeRepository, unitOfMeasureRepository, ingredientRepository);
     }
 
     @Test
@@ -107,6 +111,20 @@ public class IngredientServiceImplTest {
         assertEquals(Long.valueOf(3l), savedCommand.getId());
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, times(1)).save(any(Recipe.class));
+    }
+
+    @Test
+    public void testDeleteIngredient() throws Exception{
+
+        //Given
+        Long idToDelete = Long.valueOf(2L);
+
+        //When
+        ingredientService.deleteIngredientById(idToDelete);
+
+        //Then
+        verify(ingredientRepository, times(1)).deleteById(anyLong());
+
     }
 
 }

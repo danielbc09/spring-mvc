@@ -5,6 +5,7 @@ import dany.springframerwork.spring5recipeapp.converters.IngredientToIngredientC
 import dany.springframerwork.spring5recipeapp.converters.IngredientCommandToIngredient;
 import dany.springframerwork.spring5recipeapp.domain.Ingredient;
 import dany.springframerwork.spring5recipeapp.domain.Recipe;
+import dany.springframerwork.spring5recipeapp.repositories.IngredientRepository;
 import dany.springframerwork.spring5recipeapp.repositories.RecipeRepository;
 import dany.springframerwork.spring5recipeapp.repositories.UnitOfMeasureRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -24,12 +25,14 @@ public class IngredientServiceImpl implements IngredientService{
     private final IngredientCommandToIngredient ingredientCommandToIngredient;
     private final RecipeRepository recipeRepository;
     private final UnitOfMeasureRepository unitOfMeasureRepository;
+    private final IngredientRepository ingredientRepository;
 
-    public IngredientServiceImpl(IngredientToIngredientCommand ingredienToIngredientCommand, IngredientCommandToIngredient ingredientCommandToIngredient, RecipeRepository recipeRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
+    public IngredientServiceImpl(IngredientToIngredientCommand ingredienToIngredientCommand, IngredientCommandToIngredient ingredientCommandToIngredient, RecipeRepository recipeRepository, UnitOfMeasureRepository unitOfMeasureRepository, IngredientRepository ingredientRepository) {
         this.ingredienToIngredientCommand = ingredienToIngredientCommand;
         this.ingredientCommandToIngredient = ingredientCommandToIngredient;
         this.recipeRepository = recipeRepository;
         this.unitOfMeasureRepository = unitOfMeasureRepository;
+        this.ingredientRepository = ingredientRepository;
     }
 
     @Override
@@ -105,6 +108,11 @@ public class IngredientServiceImpl implements IngredientService{
             //to do check for fail
             return ingredienToIngredientCommand.convert(savedIngredientOptional.get());
         }
+    }
+
+    @Override
+    public void deleteIngredientById(Long idToDelete) {
+        ingredientRepository.deleteById(idToDelete);
     }
 
 }

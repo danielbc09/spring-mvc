@@ -88,7 +88,7 @@ public class IngredientServiceImplTest {
     public void testSaveRecipeCommand() throws  Exception {
         //given
         IngredientCommand ingredientCommand = new IngredientCommand();
-        ingredientCommand.setId(1l);
+        ingredientCommand.setId(3l);
         ingredientCommand.setRecipeId(2l);
 
         Optional<Recipe> recipeOptional = Optional.of(new Recipe());

@@ -3,6 +3,7 @@ package dany.springframerwork.spring5recipeapp.services;
 import dany.springframerwork.spring5recipeapp.converters.RecipeCommandToRecipe;
 import dany.springframerwork.spring5recipeapp.converters.RecipeToRecipeCommand;
 import dany.springframerwork.spring5recipeapp.domain.Recipe;
+import dany.springframerwork.spring5recipeapp.exceptions.NotFoundException;
 import dany.springframerwork.spring5recipeapp.repositories.RecipeRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,7 +53,7 @@ public class RecipeServiceImplTest {
     }
 
     @Test
-    public void getRecipiesByIdTest() throws Exception{
+    public void getRecipesByIdTest() throws Exception{
         Recipe recipe = new Recipe();
         recipe.setId(1l);
         Optional<Recipe> recipeOptional = Optional.of(recipe);
@@ -63,6 +64,15 @@ public class RecipeServiceImplTest {
         assertNotNull("Null recipe returned", recipeReturnded);
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, never()).findAll();
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void getRecipeByIdTestNotFound() throws  Exception{
+
+        Optional<Recipe> recipeOptional = Optional.empty();
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        Recipe recipeReturned = recipeServiceImpl.findById(1l);
     }
 
     @Test

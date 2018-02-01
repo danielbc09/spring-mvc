@@ -2,6 +2,7 @@ package dany.springframerwork.spring5recipeapp.controllers;
 
 import dany.springframerwork.spring5recipeapp.commands.RecipeCommand;
 import dany.springframerwork.spring5recipeapp.domain.Recipe;
+import dany.springframerwork.spring5recipeapp.exceptions.NotFoundException;
 import dany.springframerwork.spring5recipeapp.services.RecipeService;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,6 +53,13 @@ public class RecipeControllerTest {
                 .andExpect(model().attributeExists("recipe"));
     }
 
+    @Test
+    public void testRecipeNotFound() throws Exception{
+        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+
+        mockMvc.perform(get("/recipe/1/show"))
+                .andExpect(status().isNotFound());
+    }
 
     @Test
     public void testGetRecipeForm() throws Exception{

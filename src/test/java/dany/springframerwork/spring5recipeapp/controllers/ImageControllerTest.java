@@ -21,9 +21,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Created by bautisj on 1/31/2018.
@@ -44,7 +42,9 @@ public class ImageControllerTest {
     public void setUp() throws Exception{
         MockitoAnnotations.initMocks(this);
         imageController = new ImageController(imageService, recipeService);
-        mockMvc = MockMvcBuilders.standaloneSetup(imageController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(imageController)
+                                 .setControllerAdvice(new ExceptionHandlerController())
+                                 .build();
     }
 
     @Test
@@ -62,6 +62,14 @@ public class ImageControllerTest {
                 .andExpect(model().attributeExists("recipe"));
 
         verify(recipeService, times(1)).findRecipeCommandById(anyLong());
+    }
+
+    @Test
+    public void testGetImageNumberFormatException() throws Exception{
+
+        mockMvc.perform(get("/recipe/adsa/image"))
+                .andExpect(status().isBadRequest())
+                .andExpect(view().name("400Error"));
     }
 
     @Test
@@ -103,4 +111,7 @@ public class ImageControllerTest {
         byte[] responseBytes = response.getContentAsByteArray();
         assertEquals(imageName.getBytes().length, responseBytes.length);
     }
+
+
+
 }

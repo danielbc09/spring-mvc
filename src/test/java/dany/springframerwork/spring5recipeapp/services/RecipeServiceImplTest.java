@@ -75,6 +75,15 @@ public class RecipeServiceImplTest {
         Recipe recipeReturned = recipeServiceImpl.findById(1l);
     }
 
+    @Test(expected = NotFoundException.class)
+    public void getRecipeNumberFormatException() throws  Exception{
+
+        Optional<Recipe> recipeOptional = Optional.empty();
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        Recipe recipeReturned = recipeServiceImpl.findById(1l);
+    }
+
     @Test
     public void testDeleteById() throws Exception{
 

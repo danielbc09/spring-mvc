@@ -95,7 +95,7 @@ public class RecipeControllerTest {
                 .param("id", "2")
                 .param("cookTime", "2")
                 .param("servings", "3")
-                .param("description", "some string")
+   //             .param("description", "some string")
                 .param("directions", "the directions are ...."))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/recipe/2/show"));

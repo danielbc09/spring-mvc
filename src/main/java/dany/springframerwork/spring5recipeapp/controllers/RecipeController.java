@@ -47,8 +47,8 @@ public class RecipeController {
     }
 
     @PostMapping("recipe")
-    public String SaveOrUpdate(@Valid @ModelAttribute RecipeCommand command, BindingResult bindingResult){
-        log.debug(command.toString());
+    public String SaveOrUpdate(@Valid @ModelAttribute("recipe") RecipeCommand command, BindingResult bindingResult){
+
         if(bindingResult.hasErrors()){
             bindingResult.getAllErrors().forEach(objectError -> {
                 log.debug(objectError.toString());
